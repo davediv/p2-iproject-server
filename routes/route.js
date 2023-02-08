@@ -32,7 +32,7 @@ router.post('/twitter-engage', Controller.postTwtEngage)
 router.post('/register', Controller.register)
 
 // LOGIN
-// router.post('/login', Controller.login)
+router.post('/login', Controller.login)
 
 
 module.exports = router

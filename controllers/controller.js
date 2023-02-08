@@ -1,5 +1,7 @@
 const { Configuration, OpenAIApi } = require('openai');
 const { User, Log } = require('../models')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
 class Controller {
@@ -407,6 +409,60 @@ class Controller {
             res.status(401).json({
                 message: err.errors[0].message
             })
+        }
+    } // END OF STATIC
+
+    // LOGIN
+    static async login(req, res) {
+        try {
+
+            const { email, password } = req.body
+            console.log(email, password, '<<<<<<<<< email, password');
+    
+            // IF EMAIL IS EMPTY
+            if(!email) {
+                throw { name: 'INVALID_EMAIL' }
+            }
+    
+            // IF PASSWORD IS EMPTY
+            if(!password) {
+                throw { name: 'INVALID_PASSWORD' }
+            }
+    
+            // CHECK USER
+            const findUser = await User.findOne({
+                where: { email }
+            })
+            console.log(findUser, '<<<<<< findUser');
+    
+            // IF USER NOT FOUND
+            if (!findUser) {
+                throw { name: 'UNAUTHORIZED'}
+            }
+    
+            // COMPARE ENCRYPTED PASSWORD
+            const comparePassword = bcrypt.compareSync(password, findUser.password)
+            console.log(comparePassword, '<<<<<<<<< comparePassword');
+
+            // CHECK PASSWORD
+            if (!comparePassword) {
+                throw { name: 'UNAUTHORIZED'}
+            }
+    
+            // GENERATE TOKEN
+            const access_token = jwt.sign({id: findUser.id}, 'sosialMediaAi')
+    
+            // RESP
+            res.status(200).json({
+                name: findUser.name,
+                email: findUser.email,
+                isPremium: findUser.isPremium,
+                access_token: access_token
+            })
+    
+        } catch (err) {
+            console.log(err);
+            next(err)
         }
     }
 
