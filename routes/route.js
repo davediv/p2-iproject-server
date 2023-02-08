@@ -1,17 +1,22 @@
 const router = require('express').Router()
-// const Controller = require('../controllers')
+const Controller = require('../controllers/controller')
 
 
-router.get('/', (req, res) => {
-    res.send('TEST MASUK BOY')
-})
+// router.get('/', (req, res) => {
+//     res.send('TEST MASUK BOY')
+// })
 
-// router.get('/', Controller.index)
+// INDEX
+router.get('/', Controller.index)
 
-// router.post('/twitter', Controller.postTwt);
+// TWITTER - TWEET GENERATOR - DONE
+router.post('/twitter-tweet', Controller.postTwtTweet);
 
-// router.post('/facebook', Controller.postFb);
+// TWITTER - HASHTAG GENERATOR - DONE
+router.post('/twitter-hashtag', Controller.postTwtHashtag);
 
-// router.post('/instagram', Controller.postIg);
+
+
+
 
 module.exports = router

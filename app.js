@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000
 const router = require('./routes/route');
 const cors = require('cors')
 const cron = require('node-cron') // CRON JOB
+const { Configuration, OpenAIApi } = require('openai'); // OPENAI
 require('dotenv').config()
 
 app.use(express.urlencoded({extended: true}))
