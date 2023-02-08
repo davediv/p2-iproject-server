@@ -15,6 +15,8 @@ router.post('/twitter-tweet', Controller.postTwtTweet);
 // TWITTER - HASHTAG GENERATOR - DONE
 router.post('/twitter-hashtag', Controller.postTwtHashtag);
 
+// TWITTER - QUOTE GENERATOR
+router.post('/twitter-quote', Controller.postTwtQuote)
 
 
 
