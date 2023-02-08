@@ -28,5 +28,11 @@ router.post('/twitter-fact', Controller.postTwtFact)
 router.post('/twitter-engage', Controller.postTwtEngage)
 
 
+// REGISTER
+router.post('/register', Controller.register)
+
+// LOGIN
+// router.post('/login', Controller.login)
+
 
 module.exports = router

@@ -383,6 +383,34 @@ class Controller {
     } // END OF STATIC
 
 
+    // REGISTER
+    static async register(req, res) {
+
+        try {
+            const { name, email, password } = req.body
+            let isPremium = false
+            console.log(name, email, password, isPremium, '<<<<<<<<<< name, email, password, isPremium');
+            
+            const user = await User.create({ name, email, password, isPremium })
+            console.log(user, '<<<<<<<<< user');
+    
+            // RESP
+            res.status(201).json({
+                id: user.id,
+                name: user.name,
+                email: user.email
+            })
+    
+        } catch (err) {
+            console.log(err);
+            // next(err)
+            res.status(401).json({
+                message: err.errors[0].message
+            })
+        }
+    }
+
+
 } // END OF CONTROLLER
 
 module.exports = Controller
