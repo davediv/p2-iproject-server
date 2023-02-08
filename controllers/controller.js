@@ -2,6 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const { User, Log } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const axios = require('axios')
 
 
 class Controller {
@@ -465,6 +466,38 @@ class Controller {
             next(err)
         }
     }
+
+    // USERNAME CHECKER
+    static async usernameChecker(req, res) {
+
+        try {
+            console.log('MASUK USERNAME CHECKER');
+
+            let result = {}
+            let { username } = req.body
+            let apipassword = process.env.CHECK_MARKS
+
+            let { data } = await axios({
+                url: `https://checkmarks.com/api/v1/username/${username}/account/davdiv/password/${apipassword}`,
+                method: 'GET'
+            })
+            console.log(data, '<<<<<<<< data');
+
+            data.forEach(el => {
+                result[el.website] = el.status
+            })
+            console.log(result, '<<<<<<<<<< result');
+
+            // 1 = AVAILABLE, 0 = TAKEN
+
+            // RESP
+            res.status(200).json(result)
+            
+        } catch (err) {
+            console.log(err);
+        }
+
+    } // END OF STATIC
 
 
 } // END OF CONTROLLER

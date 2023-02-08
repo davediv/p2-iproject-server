@@ -34,5 +34,9 @@ router.post('/register', Controller.register)
 // LOGIN
 router.post('/login', Controller.login)
 
+// USERNAME CHECKER
+router.get('/username-checker', Controller.usernameChecker)
+
+
 
 module.exports = router
