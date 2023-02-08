@@ -28,14 +28,17 @@ router.post('/twitter-fact', Controller.postTwtFact)
 router.post('/twitter-engage', Controller.postTwtEngage)
 
 
-// REGISTER
+// REGISTER - DONE
 router.post('/register', Controller.register)
 
-// LOGIN
+// LOGIN - DONE
 router.post('/login', Controller.login)
 
-// USERNAME CHECKER
+// USERNAME CHECKER - DONE
 router.get('/username-checker', Controller.usernameChecker)
+
+// DOWN CHECKER - DONE
+router.get('/down-checker', Controller.downChecker)
 
 
 

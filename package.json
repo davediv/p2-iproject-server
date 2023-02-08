@@ -8,6 +8,7 @@
     "node-cron": "^3.0.2",
     "openai": "^3.1.0",
     "pg": "^8.9.0",
+    "ping": "^0.4.2",
     "sequelize": "^6.28.0"
   },
   "name": "p2-iproject-server",

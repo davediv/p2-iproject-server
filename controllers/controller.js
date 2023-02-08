@@ -3,6 +3,7 @@ const { User, Log } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
+const ping = require('ping')
 
 
 class Controller {
@@ -496,6 +497,30 @@ class Controller {
         } catch (err) {
             console.log(err);
         }
+
+    } // END OF STATIC
+
+
+    // DOWN CHECKER
+    static async downChecker(req, res) {
+
+        try {
+            let result = {}
+            // let hosts = ['twitter.com', 'facebook.com', 'instagram.com', 'tiktok.com'];
+            let twitter = 'twitter.com'
+
+            ping.sys.probe(twitter, function(isAlive) {
+                
+                result.twitter = isAlive
+
+                // RESP
+                res.status(200).json(result)
+            });
+
+        } catch (err) {
+            console.log(err);
+        }
+
 
     } // END OF STATIC
 
