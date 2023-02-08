@@ -9,20 +9,23 @@ const Controller = require('../controllers/controller')
 // INDEX
 router.get('/', Controller.index)
 
-// TWITTER - TWEET GENERATOR - DONE
+// TWITTER - TWEET - DONE
 router.post('/twitter-tweet', Controller.postTwtTweet)
 
-// TWITTER - HASHTAG GENERATOR - DONE
+// TWITTER - HASHTAG - DONE
 router.post('/twitter-hashtag', Controller.postTwtHashtag)
 
-// TWITTER - QUOTE GENERATOR - DONE
+// TWITTER - QUOTE - DONE
 router.post('/twitter-quote', Controller.postTwtQuote)
 
-// TWITTER - BIO GENERATOR - DONE
+// TWITTER - BIO - DONE
 router.post('/twitter-bio', Controller.postTwtBio)
 
-// TWITTER - FUN FACT GENERATOR - DONE
+// TWITTER - FUN FACT - DONE
 router.post('/twitter-fact', Controller.postTwtFact)
+
+// TWITTER - ENGAGING QUESTION - DONE
+router.post('/twitter-engage', Controller.postTwtEngage)
 
 
 

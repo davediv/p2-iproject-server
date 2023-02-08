@@ -322,6 +322,67 @@ class Controller {
     } // END OF STATIC
 
 
+    // TWITTER - GENERATE ENGAGING QUESTION
+    static async postTwtEngage(req, res) {
+
+        try {
+            let { keyword } = req.body
+            console.log(keyword, '<<<<<<<<<<<< keyword');
+    
+            // SETUP GPT-3 - text-davinci-003
+            const configuration = new Configuration({
+              apiKey: process.env.OPENAI_API_KEY,
+            });
+            const openai = new OpenAIApi(configuration);
+    
+            // SETUP PROMPT
+            const response = await openai.createCompletion({
+              model: "text-davinci-003",
+              prompt: `Bikin 1 engaging questions tentang ${keyword}, dengan bahasa Indonesia, untuk post di Twitter.`,
+              temperature: 0.9,
+              max_tokens: 150,
+              top_p: 1,
+              frequency_penalty: 0,
+              presence_penalty: 0.6,
+              stop: [" Human:", " AI:"],
+            });
+            console.log(response, '<<<<<<<<< response');
+    
+            // TRIM RESULT
+            let resultTrim = response.data.choices[0].text.trim()
+            console.log(resultTrim, '<<<<<<<<< resultTrim');
+
+            // ADD LOG
+            // let postLog = await Log.create({
+            //     // UserId: req.user.id,
+            //     UserId: 1,
+            //     platform: 'Twitter',
+            //     prompt: 'Fact : ' + keyword,
+            // })
+            // console.log(postLog, '<<<<<<<<< postLog');
+
+
+            // GET LATEST LOGS
+            let logs = await Log.findAll()
+            console.log(logs, '<<<<<<<< logs');
+        
+
+            // RESP
+            res.status(200).json({
+                result: resultTrim,
+                log: logs
+            })
+            
+        } catch (err) {
+            console.log(err, '<<<<<<<<< ERR');
+            res.status(500).json({
+                error: 'xxxxx'
+            })
+        }
+
+    } // END OF STATIC
+
+
 } // END OF CONTROLLER
 
 module.exports = Controller

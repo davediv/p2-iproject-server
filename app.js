@@ -13,15 +13,19 @@ app.use(cors())
 app.use(router)
 
 
-// TEST CRON
+
+// CRON - SCHEDULE
 // cron.schedule('* * * * * *', () => {
 
-//     setTimeout(() => {
-//         let data = randNum(85, 98)
-//         fs.writeFileSync(`./data/index.html`, `Ini random number nya : ${data}, semoga bisa ya...`)
-//     }, 3000)
+//     console.log('Test Cron Disini');
 
 // });
+
+
+
+
+
+
 
 
 app.listen(port, () => {
