@@ -10,19 +10,19 @@ const Controller = require('../controllers/controller')
 router.get('/', Controller.index)
 
 // TWITTER - TWEET GENERATOR - DONE
-router.post('/twitter-tweet', Controller.postTwtTweet);
+router.post('/twitter-tweet', Controller.postTwtTweet)
 
 // TWITTER - HASHTAG GENERATOR - DONE
-router.post('/twitter-hashtag', Controller.postTwtHashtag);
+router.post('/twitter-hashtag', Controller.postTwtHashtag)
 
 // TWITTER - QUOTE GENERATOR - DONE
 router.post('/twitter-quote', Controller.postTwtQuote)
 
-// TWITTER - BIO GENERATOR
+// TWITTER - BIO GENERATOR - DONE
 router.post('/twitter-bio', Controller.postTwtBio)
 
-// TWITTER - FUN FACT GENERATOR
-// router.post('/twitter-fact', Controller.postTwtFact)
+// TWITTER - FUN FACT GENERATOR - DONE
+router.post('/twitter-fact', Controller.postTwtFact)
 
 
 
