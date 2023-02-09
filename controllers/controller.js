@@ -244,7 +244,6 @@ class Controller {
             // REST
             res.status(200).json({
                 result: resultTrim,
-                log: postLog
             })
             
         } catch (err) {
@@ -303,7 +302,6 @@ class Controller {
             // REST
             res.status(200).json({
                 result: resultTrim,
-                log: logs
             })
             
         } catch (err) {
@@ -362,7 +360,6 @@ class Controller {
             // RESP
             res.status(200).json({
                 result: resultTrim,
-                log: logs
             })
             
         } catch (err) {
