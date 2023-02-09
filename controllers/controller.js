@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
 const ping = require('ping')
+const fs = require('fs')
 
 
 class Controller {
@@ -524,6 +525,25 @@ class Controller {
 
     } // END OF STATIC
 
+
+    // TWITTER TRENDS
+    static getTwitterTrends(req, res) {
+
+        try {
+            let twitterTrends = fs.readFileSync('./data/twitter-trends.txt', 'utf-8')
+
+            let trends = twitterTrends.split('\n')
+
+            // console.log(arr);
+
+            res.status(200).json({trends})
+            
+        } catch (err) {
+            console.log();
+        }
+
+    } // END OF STATIC
+    
 
 } // END OF CONTROLLER
 

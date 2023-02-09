@@ -40,6 +40,9 @@ router.get('/username-checker', Controller.usernameChecker)
 // DOWN CHECKER - DONE
 router.get('/down-checker', Controller.downChecker)
 
+// SHOW TWITTER TREND
+router.get('/twitter-trends', Controller.getTwitterTrends)
+
 
 
 module.exports = router
