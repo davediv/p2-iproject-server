@@ -10,23 +10,21 @@ const fs = require('fs')
 class Controller {
 
     // INDEX
-    static async index(req, res) {
+    static async index(req, res, next) {
 
         try {
             res.status(200).json({
                 message: 'Hah?'
             })
             
-        } catch (error) {
-            res.status(500).json({
-                error: 'Error brooo'
-            })
+        } catch (err) {
+            next(err)
         }
     }
 
 
     // TWITTER - GENERATE TWEET - DONE
-    static async postTwtTweet(req, res) {
+    static async postTwtTweet(req, res, next) {
 
         try {
             let keyword = req.body.keyword
@@ -77,16 +75,14 @@ class Controller {
             
         } catch (err) {
             // console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // TWITTER - GENERATE HASHTAG - DONE
-    static async postTwtHashtag(req, res) {
+    static async postTwtHashtag(req, res, next) {
 
         try {
             let keyword = req.body.keyword
@@ -137,16 +133,14 @@ class Controller {
             
         } catch (err) {
             // console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // TWITTER - GENERATE QUOTE - DONE
-    static async postTwtQuote(req, res) {
+    static async postTwtQuote(req, res, next) {
 
         try {
             let keyword = req.body.keyword
@@ -196,17 +190,15 @@ class Controller {
             })
             
         } catch (err) {
-            console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            // console.log(err, '<<<<<<<<< ERR');
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // TWITTER - GENERATE BIO - DONE
-    static async postTwtBio(req, res) {
+    static async postTwtBio(req, res, next) {
 
         try {
             let { name, job, vibe } = req.body
@@ -257,17 +249,15 @@ class Controller {
             })
             
         } catch (err) {
-            console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            // console.log(err, '<<<<<<<<< ERR');
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // TWITTER - GENERATE FUN FACT - DONE
-    static async postTwtFact(req, res) {
+    static async postTwtFact(req, res, next) {
 
         try {
             let { keyword } = req.body
@@ -318,17 +308,15 @@ class Controller {
             })
             
         } catch (err) {
-            console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            // console.log(err, '<<<<<<<<< ERR');
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // TWITTER - GENERATE ENGAGING QUESTION
-    static async postTwtEngage(req, res) {
+    static async postTwtEngage(req, res, next) {
 
         try {
             let { keyword } = req.body
@@ -379,17 +367,15 @@ class Controller {
             })
             
         } catch (err) {
-            console.log(err, '<<<<<<<<< ERR');
-            res.status(500).json({
-                error: 'xxxxx'
-            })
+            // console.log(err, '<<<<<<<<< ERR');
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // REGISTER
-    static async register(req, res) {
+    static async register(req, res, next) {
 
         try {
             const { name, email, password } = req.body
@@ -407,16 +393,13 @@ class Controller {
             })
     
         } catch (err) {
-            console.log(err);
-            // next(err)
-            res.status(401).json({
-                message: err.errors[0].message
-            })
+            // console.log(err);
+            next(err)
         }
     } // END OF STATIC
 
     // LOGIN
-    static async login(req, res) {
+    static async login(req, res, next) {
         try {
 
             const { email, password } = req.body
@@ -464,13 +447,13 @@ class Controller {
             })
     
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             next(err)
         }
     }
 
     // USERNAME CHECKER
-    static async usernameChecker(req, res) {
+    static async usernameChecker(req, res, next) {
 
         try {
             console.log('MASUK USERNAME CHECKER');
@@ -496,14 +479,15 @@ class Controller {
             res.status(200).json(result)
             
         } catch (err) {
-            console.log(err);
+            // console.log(err);
+            next(err)
         }
 
     } // END OF STATIC
 
 
     // DOWN CHECKER
-    static async downChecker(req, res) {
+    static async downChecker(req, res, next) {
 
         try {
             let result = {}
@@ -519,7 +503,8 @@ class Controller {
             });
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
+            next(err)
         }
 
 
@@ -527,7 +512,7 @@ class Controller {
 
 
     // TWITTER TRENDS
-    static getTwitterTrends(req, res) {
+    static getTwitterTrends(req, res, next) {
 
         try {
             let twitterTrends = fs.readFileSync('./data/twitter-trends.txt', 'utf-8')
@@ -540,9 +525,64 @@ class Controller {
             
         } catch (err) {
             console.log();
+            next(err)
         }
 
     } // END OF STATIC
+
+
+    // DALL-E - GENERATE IMAGE
+    static async postImageDallE(req, res, next) {
+
+        try {
+            let { keyword } = req.body
+            console.log(keyword, '<<<<<<<<<<<< keyword');
+    
+            // SETUP GPT-3 - text-davinci-003
+            const configuration = new Configuration({
+              apiKey: process.env.OPENAI_API_KEY,
+            });
+            const openai = new OpenAIApi(configuration);
+    
+            // SETUP PROMPT
+            const response = await openai.createImage({
+                prompt: keyword + ", hd, digital art",
+                n: 1,
+                size: "512x512",
+              });
+              console.log(response, '<<<<<<<<< response');
+              
+              let image_url = response.data.data[0].url;
+
+            //   console.log(image_url);
+    
+            // ADD LOG
+            // let postLog = await Log.create({
+            //     // UserId: req.user.id,
+            //     UserId: 1,
+            //     platform: 'Twitter',
+            //     prompt: 'Fact : ' + keyword,
+            // })
+            // console.log(postLog, '<<<<<<<<< postLog');
+
+
+            // GET LATEST LOGS
+            // let logs = await Log.findAll()
+            // console.log(logs, '<<<<<<<< logs');
+        
+
+            // RESP
+            res.status(200).json({
+                result: image_url
+            })
+            
+        } catch (err) {
+            // console.log(err, '<<<<<<<<< ERR');
+            next(err)
+        }
+
+    } // END OF STATIC
+
     
 
 } // END OF CONTROLLER

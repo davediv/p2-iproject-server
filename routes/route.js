@@ -40,8 +40,11 @@ router.get('/username-checker', Controller.usernameChecker)
 // DOWN CHECKER - DONE
 router.get('/down-checker', Controller.downChecker)
 
-// SHOW TWITTER TREND
+// SHOW TWITTER TREND - DONE
 router.get('/twitter-trends', Controller.getTwitterTrends)
+
+// TEST DALL-E - DONE
+router.post('/image-dalle', Controller.postImageDallE)
 
 
 
