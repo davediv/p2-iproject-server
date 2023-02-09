@@ -27,8 +27,8 @@ class Controller {
     static async postTwtTweet(req, res, next) {
 
         try {
-            let keyword = req.body.keyword
-            // console.log(keyword);
+            let { keyword } = req.body
+            console.log(keyword, '<<<<<<< keyword');
     
             // SETUP GPT-3
             const configuration = new Configuration({
@@ -51,7 +51,7 @@ class Controller {
     
             // TRIM RESULT
             let resultTrim = response.data.choices[0].text.trim()
-            // console.log(resultTrim, '<<<<<<<<< resultTrim');
+            console.log(resultTrim, '<<<<<<<<< resultTrim');
 
             // ADD LOG
             // let queryDB = await Log.create({
@@ -63,14 +63,13 @@ class Controller {
 
 
             // GET LATEST LOGS
-            let logs = await Log.findAll()
+            // let logs = await Log.findAll()
             // console.log(logs, '<<<<<<<< logs');
         
 
             // REST
             res.status(200).json({
-                result: resultTrim,
-                log: logs
+                result: resultTrim
             })
             
         } catch (err) {
