@@ -35,7 +35,7 @@ router.post('/register', Controller.register)
 router.post('/login', Controller.login)
 
 // USERNAME CHECKER - DONE
-router.get('/username-checker', Controller.usernameChecker)
+router.post('/username-checker', Controller.usernameChecker)
 
 // DOWN CHECKER - DONE
 router.get('/down-checker', Controller.downChecker)

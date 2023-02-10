@@ -452,10 +452,10 @@ class Controller {
     static async usernameChecker(req, res, next) {
 
         try {
-            console.log('MASUK USERNAME CHECKER');
+            // console.log('MASUK USERNAME CHECKER');
 
             let result = {}
-            let { username } = req.body
+            let username = req.body.keyword
             let apipassword = process.env.CHECK_MARKS
 
             let { data } = await axios({
@@ -532,7 +532,7 @@ class Controller {
 
         try {
             let { keyword } = req.body
-            console.log(keyword, '<<<<<<<<<<<< keyword');
+            // console.log(keyword, '<<<<<<<<<<<< keyword');
     
             // SETUP GPT-3 - text-davinci-003
             const configuration = new Configuration({
