@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express()
 const port = process.env.PORT || 3000
@@ -8,7 +9,6 @@ const { Configuration, OpenAIApi } = require('openai'); // OPENAI
 const ping = require('ping') // PING
 const puppeteer = require('puppeteer')
 const fs = require('fs')
-require('dotenv').config()
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -54,9 +54,9 @@ const scrapeTrend = async () => {
 
 
 // CRON - SCRAPE TWITTER TRENDS - EVERY HOUR
-// cron.schedule('0 * * * *', () => {
-//     scrapeTrend()
-// });
+cron.schedule('0 * * * *', () => {
+    scrapeTrend()
+});
 
 
 // CRON - SCHEDULE
